@@ -17,7 +17,7 @@ Ez egy WiFi-képes okos eszköz, amely Home Assistant rendszerbe integrálható,
 
 [Bővebb angol leírás](https://tasmota.github.io/docs/Buttons-and-Switches/#multi-press-functions)
 
-Az alaphelyzetbe állítás után az eszköz egy saját Wi-Fi hálózatot kezd sugározni `tasmota-******-****` mintájú néven, amelyre telefonnal vagy számítógéppel rácsatlakozhatunk. A csatlakozás után a http://192.168.4.1 címen rácsatlakoztathatjuk az eszközt a saját hálózatunkra.
+Az alaphelyzetbe állítás után az eszköz egy saját Wi-Fi hálózatot kezd sugározni `tasmota-******-****` mintájú néven, amelyre telefonnal vagy számítógéppel rácsatlakozhatunk. A csatlakozás után a http://192.168.4.1 címen konfigurálhatjuk az eszközt, hogy a saját hálózatunkra kapcsolódjon.
 
 ## Alkatrészek
 - Wemos D1 mini, vagy hasonló Tasmota-kompatibilis mikrokontroller
@@ -37,7 +37,7 @@ Az alaphelyzetbe állítás után az eszköz egy saját Wi-Fi hálózatot kezd s
 
 Részletesebb angol nyelvű leírás [itt](https://tasmota.github.io/docs/Getting-Started/).
 
-1. Csatlakoztassuk a mikrokontrollert a rajta lévő mikro-USB porton keresztül egy számítógéphez.
+1. Csatlakoztassuk a mikrokontrollert a rajta lévő mikro-USB porton keresztül (nem a dobozon lévő USB-C porton keresztül) egy számítógéphez.
 2. Nyissuk meg a [webes tasmota telepítő](https://tasmota.github.io/install/) weboldalt egy Chromium alapú böngészőben (pl. Google Chrome).
 3. Válasszuk ki a `Tasmota Sensors` verziót
     - Sok I2C-n keresztül kapcsolódó érzékelő csak ebben a verzióban támogatott, beleértve a használt HTU21-et is.
@@ -119,4 +119,14 @@ Részletesebb angol nyelvű leírás [itt](https://tasmota.github.io/docs/Gettin
 9. Ha sikerült a csatlakozás, akkor a Home Assistant `Settings`/`Devices & Services` menüjében az `Integrations` fülön meg kellett jelennie a Tasmota integrációnak a képen látható módon
 > ![Tasmota integration felfedezve](tasmota_integration.png)
 10. Kattintsunk a `CONFIGURE` gombra, és az alapértelmezett beállításokat válasszuk
-11. A `Devices` fülön ezután megjelenik a Tasmota eszköz a beállított
+11. A `Devices` fülön ezután megjelenik a felkonfigurált Tasmota eszköz
+
+### Home Assistant autmatizáció beállítása
+1. Nyissuk meg a Home Assistant weboldalát
+2. Navigáljunk a `Settings`/`Automations & Scenes` menü `Automations` fülére
+3. Kattintsunk jobb alul a `CREATE AUTOMATION` gombra
+4. Válasszuk a `Start with an empty automation` opciót
+5. Kattintsunk az `ADD TRIGGER` gombra és válasszuk a `Device` opciót
+6. A `Device` listában meg kell jelennie a korábban beállított eszköznek, válasszuk ki azt
+7. A `Trigger` listában meg kell jelennie az összes eseménynek, amit az eszköz képes kiváltani, válasszuk ki, amelyikre szeretnénk valamilyen akciót kiváltani
+8. Az `ADD ACTION` gombbal adjuk hozzá azokat az akciókat, amiket szeretnénk ha kiváltana az esemény
